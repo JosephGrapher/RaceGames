@@ -29,7 +29,7 @@ body {
 .game-logo {
     display: block;
     margin: 0 auto 10px auto; /* Centra l'immagine e aggiunge spazio sotto */
-    width: 150px;
+    width: 250px;
     max-width: 100%;
 }
 
@@ -198,4 +198,5 @@ button:active {
         opacity: 0;
     }
 }
+
 
