@@ -118,8 +118,8 @@ function update(ts) {
 
     // ---- MOVIMENTO (Tastiera + Giroscopio) ----
     let dx = 0;
-    if (keyLeft) dx -= 6;
-    if (keyRight) dx += 6;
+    if (keyLeft) dx -= 4;
+    if (keyRight) dx += 4;
     dx += gyroVelocity; // Aggiunge l'input del giroscopio
 
     car.x += dx;
@@ -417,8 +417,8 @@ function startGyroGame() {
 
 function handleOrientation(event) {
     const tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
-    const deadZone = 40;      // Aumentato a 10 per facilitare l'andare dritti
-    const sensitivity = 0.4;  // Aumentato leggermente per compensare la zona morta
+    const deadZone = 20;      // Aumentato a 10 per facilitare l'andare dritti
+    const sensitivity = 0.2;  // Aumentato leggermente per compensare la zona morta
 
     if (Math.abs(tilt) < deadZone) {
         gyroVelocity = 0;
