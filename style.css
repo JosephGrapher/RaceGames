@@ -28,8 +28,8 @@ body {
 
 .game-logo {
     display: block;
-    margin: 0 auto 10px auto; /* Centra l'immagine e aggiunge spazio sotto */
-    width: 250px;
+    margin: 0 auto 5px auto; /* Ridotto margine */
+    width: 100px; /* Ridotto dimensione logo */
     max-width: 100%;
 }
 
@@ -68,8 +68,11 @@ body {
 #gameCanvas {
     border-radius: 20px;
     display: block;
-    width: 100%; /* Adatta il canvas alla larghezza del contenitore */
-    height: auto; /* Mantiene le proporzioni originali */
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 70vh; /* Limita l'altezza al 70% dello schermo */
+    margin: 0 auto; /* Centra il canvas */
 }
 
 /* # Schermata di fine gioco */
@@ -198,5 +201,3 @@ button:active {
         opacity: 0;
     }
 }
-
-
