@@ -8,6 +8,8 @@
 
 body {
     padding-top: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: 'Arial', sans-serif; /* Ho usato Arial, puoi cambiarlo con 'ruddy' se lo hai importato */
     line-height: 1;
     color: #001732;
@@ -19,14 +21,16 @@ body {
 
 /* # Pannello di gioco */
 .game-container {
-    width: 400px; /* Adattato alla larghezza del tuo canvas */
+    width: 100%;
+    max-width: 400px; /* Larghezza massima fissa per desktop */
     touch-action: manipulation;
 }
 
 .game-logo {
     display: block;
     margin: 0 auto 10px auto; /* Centra l'immagine e aggiunge spazio sotto */
-    width: 250px; /* Puoi aggiustare la larghezza del logo */
+    width: 250px;
+    max-width: 100%;
 }
 
 .game-panel {
@@ -63,7 +67,9 @@ body {
 /* # Canvas di gioco */
 #gameCanvas {
     border-radius: 20px;
-    display: block; /* Rimuove spazi extra sotto il canvas */
+    display: block;
+    width: 100%; /* Adatta il canvas alla larghezza del contenitore */
+    height: auto; /* Mantiene le proporzioni originali */
 }
 
 /* # Schermata di fine gioco */
