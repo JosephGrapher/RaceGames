@@ -1,0 +1,194 @@
+/* # Regole generiche */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Modificato per coerenza */
+}
+
+
+body {
+    padding-top: 16px;
+    font-family: 'Arial', sans-serif; /* Ho usato Arial, puoi cambiarlo con 'ruddy' se lo hai importato */
+    line-height: 1;
+    color: #001732;
+    background: #222; /* Mantenuto lo sfondo scuro per far risaltare il gioco */
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+/* # Pannello di gioco */
+.game-container {
+    width: 400px; /* Adattato alla larghezza del tuo canvas */
+    touch-action: manipulation;
+}
+
+.game-logo {
+    display: block;
+    margin: 0 auto 10px auto; /* Centra l'immagine e aggiunge spazio sotto */
+    width: 250px; /* Puoi aggiustare la larghezza del logo */
+}
+
+.game-panel {
+    position: relative;
+}
+
+/* # Punteggio */
+.score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #d9ff66;
+    border-radius: 25px;
+    padding: 5px 30px;
+    box-shadow: 0 5px #bee15a;
+}
+
+.score-label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+    color: #5d7394;
+}
+
+.score-counter {
+    font-size: 24px;
+    line-height: 28px;
+    color: #0d1c73;
+    font-weight: 700;
+    position: relative; /* Aggiunto per posizionare correttamente l'animazione bonus */
+}
+
+/* # Canvas di gioco */
+#gameCanvas {
+    border-radius: 20px;
+    display: block; /* Rimuove spazi extra sotto il canvas */
+}
+
+/* # Schermata di fine gioco */
+.end-game-screen {
+    padding: 16px;
+    border-radius: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #d9ff66;
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+.end-game-text {
+    font-size: 32px;
+    line-height: 40px;
+    background: linear-gradient(to bottom, #0d1c73, #4c64f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.end-card-image {
+    width: 250px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.end-game-screen .score {
+    font-size: 20px;
+    line-height: 32px;
+    padding: 0 16px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #5d7394;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 10px #bee15a;
+    margin-top: 20px; /* Ridotto il margine per fare spazio all'immagine */
+}
+
+.final-score {
+    font-size: 48px;
+    line-height: 56px;
+    color: #0d1c73;
+    font-weight: 700;
+}
+
+/* # Pulsanti */
+button {
+    display: block;
+    width: 100%;
+    margin-top: 40px; /* Ridotto il margine per adattarsi al nuovo layout */
+    padding: 10px 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    letter-spacing: 1.02px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    background-color: #4c64f2;
+    background-image: linear-gradient(to bottom, #2e45cc, #4c64f2);
+    border-radius: 16px;
+    box-shadow: inset 0 -3px rgba(255, 255, 255, 0.5), 0 12px #172ba1;
+    transition: all 0.1s ease;
+    touch-action: manipulation;
+}
+
+button:hover {
+    background-image: linear-gradient(to bottom, #4c64f2, #7ca4f3);
+}
+
+button:active {
+    box-shadow: inset 0 -3px rgba(255, 255, 255, 0.5), 0 4px #172ba1;
+    transform: translateY(8px);
+}
+
+/* # Utilità */
+.hidden {
+    display: none;
+}
+
+/* Stili per l'indicatore di velocità */
+.speed-gauge {
+    position: absolute;
+    bottom: 20px; /* Distanza dal bordo inferiore */
+    left: 20px;  /* Distanza dal bordo sinistro */
+    width: 100px; /* Larghezza fissa come richiesto */
+    height: auto; /* L'altezza si adatta per mantenere le proporzioni */
+    z-index: 10; /* Assicura che sia sopra il canvas e altri elementi */
+}
+
+/* # Animazione Punteggio Bonus */
+.score-counter.bonus::after {
+	content: '+30';
+	color: #3ca98f;
+	position: absolute;
+	font-size: 24px;
+	line-height: 24px;
+	top: -10px; /* Leggermente sopra per non sovrapporsi */
+	right: -15px; /* Leggermente a destra */
+	opacity: 0;
+	animation: bonus-animation 1s ease-out;
+}
+
+@keyframes bonus-animation {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-30px); /* Sale verso l'alto */
+        opacity: 0;
+    }
+}

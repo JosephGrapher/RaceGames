@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="game-container">
+    <!-- Logo del gioco -->
+    <img src="images/logo.png" alt="Game Logo" class="game-logo">
+
+    <!-- Pannello Punteggio -->
+    <div id="mainScorePanel" class="score">
+        <span class="score-label">Score</span>
+        <span id="score-counter" class="score-counter">0</span>
+    </div>
+
+    <!-- Pannello di Gioco -->
+    <div class="game-panel">
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+        <!-- Schermata di Inizio per Giroscopio -->
+        <div id="startScreen" class="end-game-screen">
+            <h2 class="end-game-text">Pronto?</h2>
+            <p style="color: white; margin-bottom: 20px;">Inclina il telefono per guidare!</p>
+            <button onclick="startGyroGame()">Inizia Gioco</button>
+        </div>
+
+        <!-- Schermata di Game Over (nascosta) -->
+        <div id="gameOverScreen" class="end-game-screen hidden">
+            <h2 class="end-game-text">Game Over</h2>
+            <img src="images/kart-endcard.png" alt="Game Over Kart" class="end-card-image">
+            <div class="score">
+                <span class="score-label">Final Score</span>
+                <span id="finalScore" class="final-score">0</span>
+            </div>
+            <button onclick="restartGame()">Restart</button>
+        </div>
+
+        <!-- Indicatore di Velocità -->
+        <img src="images/gauge-1.png" alt="Speed Gauge" id="speedGauge" class="speed-gauge">
+    </div>
+</div>
+
+<!-- Contenitore per le risorse animate (nascosto fuori schermo) -->
+<div style="position: absolute; left: -9999px;">
+    <img id="coin-gif" src="images/coin.gif" alt="coin">
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
