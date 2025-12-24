@@ -118,8 +118,8 @@ function update(ts) {
 
     // ---- MOVIMENTO (Tastiera + Giroscopio) ----
     let dx = 0;
-    if (keyLeft) dx -= 4;
-    if (keyRight) dx += 4;
+    if (keyLeft) dx -= 10;
+    if (keyRight) dx += 10;
     dx += gyroVelocity; // Aggiunge l'input del giroscopio
 
     car.x += dx;
@@ -434,3 +434,4 @@ function handleOrientation(event) {
 
 // NOTA: Ho rimosso 'requestAnimationFrame(gameLoop)' qui sotto
 // perché ora il gioco parte solo quando premi il pulsante.
+
