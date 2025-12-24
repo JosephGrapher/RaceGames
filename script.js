@@ -417,8 +417,8 @@ function startGyroGame() {
 
 function handleOrientation(event) {
     const tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
-    const deadZone = 20;      // Aumentato a 10 per facilitare l'andare dritti
-    const sensitivity = 0.2;  // Aumentato leggermente per compensare la zona morta
+    const deadZone = 10;      // Aumentato a 10 per facilitare l'andare dritti
+    const sensitivity = 0.3;  // Aumentato leggermente per compensare la zona morta
 
     if (Math.abs(tilt) < deadZone) {
         gyroVelocity = 0;
@@ -434,3 +434,4 @@ function handleOrientation(event) {
 
 // NOTA: Ho rimosso 'requestAnimationFrame(gameLoop)' qui sotto
 // perché ora il gioco parte solo quando premi il pulsante.
+
