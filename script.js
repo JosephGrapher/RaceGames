@@ -421,24 +421,16 @@ function startGyroGame() {
 }
 
 function handleOrientation(event) {
-    let tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
-
-    // Limita la rotazione a massimo 45 gradi per evitare movimenti troppo veloci
-    if (tilt > 45) tilt = 45;
-    if (tilt < -45) tilt = -45;
-
-    const deadZone = 10;      // Aumentato a 10 per facilitare l'andare dritti
-    const sensitivity = 0.3;  // Aumentato leggermente per compensare la zona morta
+    const tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
+    const deadZone = 5;       // Zona morta ridotta
+    const moveSpeed = 5;      // Velocità costante (uguale a destra e sinistra)
 
     if (Math.abs(tilt) < deadZone) {
         gyroVelocity = 0;
+    } else if (tilt > 0) {
+        gyroVelocity = moveSpeed;
     } else {
-        // Sottrae la deadZone per un movimento fluido appena si supera la soglia
-        if (tilt > 0) {
-            gyroVelocity = (tilt - deadZone) * sensitivity;
-        } else {
-            gyroVelocity = (tilt + deadZone) * sensitivity;
-        }
+        gyroVelocity = -moveSpeed;
     }
 }
 
