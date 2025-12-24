@@ -67,6 +67,7 @@ let keyLeft = false;
 let keyRight = false;
 let keyUp = false;
 let keyDown = false;
+let gyroVelocity = 0; // Variabile per la velocità del giroscopio
 
 document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" || e.key === "a") keyLeft = true;
@@ -115,9 +116,15 @@ function update(ts) {
     const forwardDisplacement = speedRatio * 180; // Spostamento massimo di 180px
     carVisualY = car.y - forwardDisplacement;
 
-    // Move car
-    if (keyLeft && car.x > 0) car.x -= 4;
-    if (keyRight && car.x + car.w < canvas.width) car.x += 4;
+    // ---- MOVIMENTO (Tastiera + Giroscopio) ----
+    let dx = 0;
+    if (keyLeft) dx -= 4;
+    if (keyRight) dx += 4;
+    dx += gyroVelocity; // Aggiunge l'input del giroscopio
+
+    car.x += dx;
+    if (car.x < 0) car.x = 0;
+    if (car.x + car.w > canvas.width) car.x = canvas.width - car.w;
 
     // Scroll background
     backgroundY = (backgroundY + speed) % canvas.height;
@@ -167,9 +174,9 @@ function draw() {
 
     // 3. Applica la rotazione
     const rotationDegrees = 15;
-    if (keyLeft && !keyRight) {
+    if ((keyLeft && !keyRight) || gyroVelocity < -0.5) {
         ctx.rotate(-rotationDegrees * Math.PI / 180); // Angolo negativo per sinistra
-    } else if (keyRight && !keyLeft) {
+    } else if ((keyRight && !keyLeft) || gyroVelocity > 0.5) {
         ctx.rotate(rotationDegrees * Math.PI / 180);  // Angolo positivo per destra
     }
 
@@ -410,17 +417,18 @@ function startGyroGame() {
 
 function handleOrientation(event) {
     const tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
-    const threshold = 5; // Zona morta per evitare movimenti involontari
+    const deadZone = 5;       // Gradi sotto i quali la macchina sta ferma
+    const sensitivity = 0.3;  // Moltiplicatore di velocità
 
-    if (tilt < -threshold) {
-        keyLeft = true;
-        keyRight = false;
-    } else if (tilt > threshold) {
-        keyRight = true;
-        keyLeft = false;
+    if (Math.abs(tilt) < deadZone) {
+        gyroVelocity = 0;
     } else {
-        keyLeft = false;
-        keyRight = false;
+        // Sottrae la deadZone per un movimento fluido appena si supera la soglia
+        if (tilt > 0) {
+            gyroVelocity = (tilt - deadZone) * sensitivity;
+        } else {
+            gyroVelocity = (tilt + deadZone) * sensitivity;
+        }
     }
 }
 
