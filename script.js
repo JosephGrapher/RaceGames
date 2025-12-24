@@ -239,16 +239,27 @@ function spawnCoin() {
 // ---- COLLISION CHECK ----
 function checkCollisions() {
 
+    // Definizione hitbox auto più precisa (ridotta rispetto all'immagine completa per escludere trasparenze)
+    const hitBoxMargin = 10; 
+    const carHitbox = {
+        x: car.x + hitBoxMargin,
+        y: carVisualY + hitBoxMargin,
+        w: car.w - (hitBoxMargin * 2),
+        h: car.h - (hitBoxMargin * 2)
+    };
+
     // obstacle collision
     for (let o of obstacles) {
-        // Creiamo un rettangolo di collisione temporaneo per l'auto che usa la posizione Y visiva
-        const carCollisionRect = {
-            x: car.x,
-            y: carVisualY, // Usiamo la posizione Y visiva per la collisione
-            w: car.w,
-            h: car.h
+        // Hitbox ostacolo ridotta (15% per lato) per adattarsi meglio all'immagine visibile
+        const obsMarginX = o.w * 0.15;
+        const obsMarginY = o.h * 0.15;
+        const obstacleHitbox = {
+            x: o.x + obsMarginX,
+            y: o.y + obsMarginY,
+            w: o.w - (obsMarginX * 2),
+            h: o.h - (obsMarginY * 2)
         };
-        if (rectRectColl(carCollisionRect, o)) {
+        if (rectRectColl(carHitbox, obstacleHitbox)) {
             gameOver();
             return;
         }
@@ -256,14 +267,8 @@ function checkCollisions() {
 
     // coin pickup
     for (let i = coins.length - 1; i >= 0; i--) {
-        // Per coerenza, usiamo anche la posizione Y visiva per la collisione con le monete
-        const carCollisionRect = {
-            x: car.x,
-            y: carVisualY, // Usiamo la posizione Y visiva per la collisione
-            w: car.w,
-            h: car.h
-        };
-        if (rectCircleCollCenter(carCollisionRect, coins[i])) {
+        // Usa la hitbox ridotta anche per le monete
+        if (rectCircleCollCenter(carHitbox, coins[i])) {
             const scoreCounterEl = document.getElementById("score-counter");
 
             score += 30;
@@ -416,7 +421,12 @@ function startGyroGame() {
 }
 
 function handleOrientation(event) {
-    const tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
+    let tilt = event.gamma; // Inclinazione sinistra/destra (-90 a 90 gradi)
+
+    // Limita la rotazione a massimo 45 gradi per evitare movimenti troppo veloci
+    if (tilt > 45) tilt = 45;
+    if (tilt < -45) tilt = -45;
+
     const deadZone = 10;      // Aumentato a 10 per facilitare l'andare dritti
     const sensitivity = 0.3;  // Aumentato leggermente per compensare la zona morta
 
@@ -434,4 +444,3 @@ function handleOrientation(event) {
 
 // NOTA: Ho rimosso 'requestAnimationFrame(gameLoop)' qui sotto
 // perché ora il gioco parte solo quando premi il pulsante.
-
