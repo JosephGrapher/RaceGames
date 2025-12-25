@@ -25,7 +25,6 @@ Object.keys(imageSources).forEach(key => {
 const INITIAL_CAR_STATE = { x: 175, y: 500, w: 65, h: 65 };
 
 let car = { ...INITIAL_CAR_STATE }; // Usa una copia dello stato iniziale
-let carVisualY = car.y; // Posizione Y visiva per l'effetto di accelerazione
 let obstacles = [];
 let coins = [];
 let score = 0;
@@ -114,11 +113,6 @@ function gameLoop(timestamp) {
 // ---- UPDATE ----
 function update(ts) {
 
-    // ---- NUOVO: Calcolo della posizione Y visiva in base alla velocità ----
-    const speedRatio = (speed - minSpeed) / (maxSpeed - minSpeed); // Percentuale di velocità (da 0.0 a 1.0)
-    const forwardDisplacement = speedRatio * 180; // Spostamento massimo di 180px
-    carVisualY = car.y - forwardDisplacement;
-
     // ---- MOVIMENTO (Tastiera + Giroscopio) ----
     let dx = 0;
     if (keyLeft) dx -= 4;
@@ -170,7 +164,7 @@ function draw() {
 
     // Calcola il centro del kart per la rotazione
     const carCenterX = car.x + car.w / 2;
-    const carCenterY = carVisualY + car.h / 2;
+    const carCenterY = car.y + car.h / 2;
 
     // 2. Sposta l'origine del canvas al centro del kart
     ctx.translate(carCenterX, carCenterY);
@@ -246,7 +240,7 @@ function checkCollisions() {
     const hitBoxMargin = 10; 
     const carHitbox = {
         x: car.x + hitBoxMargin,
-        y: carVisualY + hitBoxMargin,
+        y: car.y + hitBoxMargin,
         w: car.w - (hitBoxMargin * 2),
         h: car.h - (hitBoxMargin * 2)
     };
@@ -328,7 +322,6 @@ function gameOver() {
 // ---- RESTART ----
 function restartGame() {
     car = { ...INITIAL_CAR_STATE }; // Usa una copia dello stato iniziale
-    carVisualY = car.y;
     obstacles = [];
     coins = [];
     score = 0;
