@@ -42,10 +42,10 @@ let lastCoinSpawn = 0;
 // ---- POINTS INTERVAL ----
 // Mappa che associa il livello di velocità (gauge) all'intervallo in millisecondi per i punti
 const pointIntervals = {
-    1: 750, // gauge-1
-    2: 500, // gauge-2
-    3: 350,  // gauge-3
-    4: 200   // gauge-4 (il livello di velocità più alto)
+    1: 500, // gauge-1
+    2: 300, // gauge-2
+    3: 150,  // gauge-3
+    4: 50   // gauge-4 (il livello di velocità più alto)
 };
 let pointsIntervalId = null; // ID del timer per i punti
 
@@ -432,4 +432,5 @@ function handleOrientation(event) {
 
 // NOTA: Ho rimosso 'requestAnimationFrame(gameLoop)' qui sotto
 // perché ora il gioco parte solo quando premi il pulsante.
+
 
