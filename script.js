@@ -30,7 +30,7 @@ let coins = [];
 let score = 0;
 let gauge = 1; // Livello di velocità attuale (da 1 a 4)
 
-let speed = 2;         // Velocità di base
+let speed = 1;         // Velocità di base
 let minSpeed = 1;      // Velocità minima
 let maxSpeed = 4;      // Velocità massima
 let backgroundY = 0;   // Posizione Y per lo sfondo scorrevole
@@ -42,10 +42,10 @@ let lastCoinSpawn = 0;
 // ---- POINTS INTERVAL ----
 // Mappa che associa il livello di velocità (gauge) all'intervallo in millisecondi per i punti
 const pointIntervals = {
-    1: 1250, // gauge-1
-    2: 1000, // gauge-2
-    3: 750,  // gauge-3
-    4: 500   // gauge-4 (il livello di velocità più alto)
+    1: 1000, // gauge-1
+    2: 850, // gauge-2
+    3: 600,  // gauge-3
+    4: 350   // gauge-4 (il livello di velocità più alto)
 };
 let pointsIntervalId = null; // ID del timer per i punti
 
@@ -326,7 +326,7 @@ function restartGame() {
     coins = [];
     score = 0;
     gauge = 1;
-    speed = 2;
+    speed = 1;
     running = true;
     speedGaugeElement.classList.remove("hidden");
     document.getElementById("mainScorePanel").classList.remove("hidden");
