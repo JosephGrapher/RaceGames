@@ -62,6 +62,16 @@ const gaugeImagePaths = [
     'images/gauge-4.png'  // 76-100% della velocità massima
 ];
 
+// Aggiungi evento click al tachimetro per cambiare velocità in sequenza
+speedGaugeElement.addEventListener('click', () => {
+    if (!running) return;
+
+    speed += 1; // Aumenta la velocità di uno step
+    if (speed > maxSpeed) speed = minSpeed; // Se supera il massimo, torna al minimo
+
+    updateSpeedGaugeDisplay(); // Aggiorna subito la grafica
+});
+
 // ---- CONTROLS ----
 let keyLeft = false;
 let keyRight = false;
@@ -103,13 +113,6 @@ function gameLoop(timestamp) {
 
 // ---- UPDATE ----
 function update(ts) {
-
-    // Controllo velocità con i tasti (accelerazione/decelerazione)
-    if (keyUp && speed < maxSpeed) {
-        speed += 0.05;
-    } else if (keyDown && speed > minSpeed) {
-        speed -= 0.05;
-    }
 
     // ---- NUOVO: Calcolo della posizione Y visiva in base alla velocità ----
     const speedRatio = (speed - minSpeed) / (maxSpeed - minSpeed); // Percentuale di velocità (da 0.0 a 1.0)
